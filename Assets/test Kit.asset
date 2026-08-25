@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b9189f9cf057a5b938898964d63382, type: 3}
+  m_Name: test Kit
+  m_EditorClassIdentifier: Assembly-CSharp::ModularKitDefinition
+  _kitId: 291a35218eed46feab959c76f73ea1f7
+  _displayName: test Kit
+  _gridCellSize: {x: 1, y: 1}
+  _floorHeight: 4
+  _rotationSnap: 90
+  _categories:
+  - _categoryId: b7884916dd2e4014a3bb07e0a04b37c7
+    _displayName: Walls
+  - _categoryId: b49e960c67db45b5862d4cddef89250c
+    _displayName: Windows
+  - _categoryId: 934cfc5ee2f04be89a783d87c4c49ac2
+    _displayName: Entrace
+  - _categoryId: 15927c96e6ae449eb432fcbc9e7fc661
+    _displayName: Roof
+  - _categoryId: 405bee8a95fc4afda188cd394e08d0ec
+    _displayName: Platfrom
+  _compatibilityGroups: []
+  _placementTypes:
+  - _placementTypeId: 2ccb7ea046ba4c228d459d1997a8d536
+    _displayName: Roof
+  - _placementTypeId: 904b5c51192b4524a6c2487394cf2039
+    _displayName: Wall
+  - _placementTypeId: 66095fd5edc54c218f6bf2af2969111c
+    _displayName: Window
+  - _placementTypeId: 0a57452f1e9c4e6aa697e4e8e52f2310
+    _displayName: Entrace
+  - _placementTypeId: b242792043c544d4b06ccbabec662759
+    _displayName: Platfrom
+  _modules:
+  - _moduleId: 2372a239eba447c8bf54b77e6d3d52c6
+    _displayName: SM_WallConner
+    _prefab: {fileID: 4181943821485378672, guid: 9f96319e6c29fd450b4e95e453dddd9a, type: 3}
+    _categoryId: b7884916dd2e4014a3bb07e0a04b37c7
+    _compatibilityGroupId: 
+    _placementTypeId: 904b5c51192b4524a6c2487394cf2039
+    _moduleSizeInGridCells: {x: 2, y: 2}
+    _floorSpan: 1
+  - _moduleId: 4681c024f9794e9b98e1df967def4d56
+    _displayName: SM_WallEntrace
+    _prefab: {fileID: 28099634464738443, guid: 7024387fe11ce5218a492aebb28e80fc, type: 3}
+    _categoryId: 934cfc5ee2f04be89a783d87c4c49ac2
+    _compatibilityGroupId: 
+    _placementTypeId: 0a57452f1e9c4e6aa697e4e8e52f2310
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 1c158083dfc04e5b8a936b01e19a757e
+    _displayName: SM_Roof
+    _prefab: {fileID: 952607539362983576, guid: 7f1de9c776981ead887b7e8fae0a2992, type: 3}
+    _categoryId: 15927c96e6ae449eb432fcbc9e7fc661
+    _compatibilityGroupId: 
+    _placementTypeId: 2ccb7ea046ba4c228d459d1997a8d536
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: a531c31a1a004073bb6f15ca7b3c764c
+    _displayName: SM_2WindowSmall
+    _prefab: {fileID: 1294168224580924422, guid: 95f50fe18d3e0416cac280649e46b4c8, type: 3}
+    _categoryId: b49e960c67db45b5862d4cddef89250c
+    _compatibilityGroupId: 
+    _placementTypeId: 66095fd5edc54c218f6bf2af2969111c
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 6dbd0a9568f2471886ac9037991c3566
+    _displayName: SM_2Window
+    _prefab: {fileID: 6986780336599969209, guid: 74154357c8593b88eb1c16fc7fb4865a, type: 3}
+    _categoryId: b49e960c67db45b5862d4cddef89250c
+    _compatibilityGroupId: 
+    _placementTypeId: 66095fd5edc54c218f6bf2af2969111c
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: f814694dea644b43839c6ad96cf1b1ae
+    _displayName: SM_TriWall
+    _prefab: {fileID: 8007556773666913431, guid: b886691004348928fba36c7bf13b72d0, type: 3}
+    _categoryId: b7884916dd2e4014a3bb07e0a04b37c7
+    _compatibilityGroupId: 
+    _placementTypeId: 
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: ba31770f0b794985b51734279e5b5dcd
+    _displayName: SM_Platfrom
+    _prefab: {fileID: 3959721741088725004, guid: 6b4e559553750530385001f37a2719e0, type: 3}
+    _categoryId: 405bee8a95fc4afda188cd394e08d0ec
+    _compatibilityGroupId: 
+    _placementTypeId: 
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 3a2129e02cfc4448a4d79bf7589f4a85
+    _displayName: SM_Windows
+    _prefab: {fileID: 764522648258660429, guid: 66f4d867aa09273929c69b291c5b4941, type: 3}
+    _categoryId: b49e960c67db45b5862d4cddef89250c
+    _compatibilityGroupId: 
+    _placementTypeId: 66095fd5edc54c218f6bf2af2969111c
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: c205e9011a0e4a629d48c94fd7884585
+    _displayName: SM_Wall
+    _prefab: {fileID: 1214491137067566345, guid: 0d8d144b451cf84c08fe2e131cfcd250, type: 3}
+    _categoryId: b7884916dd2e4014a3bb07e0a04b37c7
+    _compatibilityGroupId: 
+    _placementTypeId: 904b5c51192b4524a6c2487394cf2039
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1

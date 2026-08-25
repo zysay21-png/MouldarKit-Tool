@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b9189f9cf057a5b938898964d63382, type: 3}
+  m_Name: Sci fi
+  m_EditorClassIdentifier: Assembly-CSharp::ModularKitDefinition
+  _kitId: 59979e9fece5474da688e16efc9e2b65
+  _displayName: Sci fi
+  _gridCellSize: {x: 1, y: 1}
+  _floorHeight: 3
+  _rotationSnap: 90
+  _categories:
+  - _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _displayName: Walls
+  - _categoryId: 00b6ee21ab3d4905b0e318b574fbf5b3
+    _displayName: Roof
+  - _categoryId: a1cae07e26264191a96ad3fa35fd4537
+    _displayName: Floor
+  _compatibilityGroups: []
+  _placementTypes:
+  - _placementTypeId: 9a8148d9f31147dda429f4d7556be28c
+    _displayName: Roof
+  - _placementTypeId: 9741108d3f45460882b85fd320fefa8a
+    _displayName: Wall
+  - _placementTypeId: ef893649900642598a27ca7f1d6163fc
+    _displayName: Floor
+  _modules:
+  - _moduleId: 81e348e7a48d440b8f0df67e07a2980b
+    _displayName: Wall_Arc_90_01
+    _prefab: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 9741108d3f45460882b85fd320fefa8a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 409e608228fc4470ae1eb6e9e9f77c7a
+    _displayName: Wall_HalfArc_90_02
+    _prefab: {fileID: 191070, guid: 618681761d79b4f72b0746a3dcd4bff1, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 9741108d3f45460882b85fd320fefa8a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: ef2baebe60e043b69f3e26c4e4b3122a
+    _displayName: Wall_Simple_01
+    _prefab: {fileID: 103644, guid: a4c18952442944083b1fddc06ba477c2, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 9741108d3f45460882b85fd320fefa8a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 9a4ebc7c533c4d8ba8bef62315c09a80
+    _displayName: Room_Big_Part_01
+    _prefab: {fileID: 163904, guid: 8db5b99e1590340a4a7166fa4c9f9cf2, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 9741108d3f45460882b85fd320fefa8a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: eb323cbb2f354293b4b2fb5c4ab9cc15
+    _displayName: Floor_01
+    _prefab: {fileID: 119840, guid: c76d2d3504ddb4847940a815cad04644, type: 3}
+    _categoryId: a1cae07e26264191a96ad3fa35fd4537
+    _compatibilityGroupId: 
+    _placementTypeId: ef893649900642598a27ca7f1d6163fc
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 6bfd8e3f20eb46bdb4a51bcf450b292b
+    _displayName: Room_Big_Part_02
+    _prefab: {fileID: 183170, guid: 56f887c8f9289447895ae8a07be226ec, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 1fa2bb7d36a94b3fb7baf8570a033275
+    _displayName: Roof_01
+    _prefab: {fileID: 191206, guid: 1a5e2f40365fe44ada271dd97ea7506f, type: 3}
+    _categoryId: 00b6ee21ab3d4905b0e318b574fbf5b3
+    _compatibilityGroupId: 
+    _placementTypeId: 9a8148d9f31147dda429f4d7556be28c
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: f50cfb674c7a4a17afefaf5d53373cbe
+    _displayName: Roof_Door_01
+    _prefab: {fileID: 115104, guid: 1e6809cccc6f04f01b0819da314e428b, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 9a8148d9f31147dda429f4d7556be28c
+    _moduleSizeInGridCells: {x: 15, y: 15}
+    _floorSpan: 1
+  - _moduleId: e6cbb29e4ebe45e0ac77ef7957454c9a
+    _displayName: Roof_Angle_01
+    _prefab: {fileID: 177348, guid: c27c7521daec24863af069554ea1fb47, type: 3}
+    _categoryId: 00b6ee21ab3d4905b0e318b574fbf5b3
+    _compatibilityGroupId: 
+    _placementTypeId: 9a8148d9f31147dda429f4d7556be28c
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 3e2eb418e9ad49f5935610611571195f
+    _displayName: Door_Arch_01
+    _prefab: {fileID: 189474, guid: 0f9396310131e47e3979f1a7cb96c071, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: 43ca39c03a4646fd8085ccec74387175
+    _displayName: Roof_Angle_Large_01
+    _prefab: {fileID: 144834, guid: 4d57a31eab232457da9acbcc32af22cf, type: 3}
+    _categoryId: 00b6ee21ab3d4905b0e318b574fbf5b3
+    _compatibilityGroupId: 
+    _placementTypeId: 9a8148d9f31147dda429f4d7556be28c
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: ed0476416e95498eacc4af78ef32da51
+    _displayName: Roof_02
+    _prefab: {fileID: 183172, guid: b9038ed84a1fe4aecb34086f7f42d1bf, type: 3}
+    _categoryId: 00b6ee21ab3d4905b0e318b574fbf5b3
+    _compatibilityGroupId: 
+    _placementTypeId: 9a8148d9f31147dda429f4d7556be28c
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
+  - _moduleId: ab0693ebfada41febc73b2791cc33c30
+    _displayName: Wall_Arc_90_02
+    _prefab: {fileID: 157892, guid: 13990f94448cc49c08e917134d8b0479, type: 3}
+    _categoryId: 0f422ed64a594a34b42f4cba6ce49c65
+    _compatibilityGroupId: 
+    _placementTypeId: 
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _floorSpan: 1
