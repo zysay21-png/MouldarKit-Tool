@@ -2,8 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Central data asset for a modular kit.
+/// Stores global placement settings together with all categories,
+/// compatibility groups, placement types and module definitions.
+/// </summary>
 public class ModularKitDefinition : ScriptableObject
 {
+    // =========================================================
+    // KIT SETTINGS
+    // =========================================================
+
+    // Stable identity used to associate placed modules and builds with this kit.
     [SerializeField, HideInInspector]
     private string _kitId;
 
@@ -19,6 +29,12 @@ public class ModularKitDefinition : ScriptableObject
     [SerializeField]
     private float _rotationSnap = 90f;
 
+    // =========================================================
+    // KIT DATA COLLECTIONS
+    // =========================================================
+
+    // Editor-authored definitions are hidden from the default inspector and
+    // managed through the custom ModularKitDefinition editor.
     [SerializeField, HideInInspector]
     private List<CategoryDefinition> _categories = new List<CategoryDefinition>();
 
@@ -44,6 +60,9 @@ public class ModularKitDefinition : ScriptableObject
     public IReadOnlyList<PlacementTypeDefinition> PlacementTypes => _placementTypes;
     public IReadOnlyList<ModuleDefinition> Modules => _modules;
 
+    /// <summary>
+    /// Initializes a new kit once, creates its persistent ID and ensures the default category exists.
+    /// </summary>
     public bool Initialize(string displayName)
     {
         if (!string.IsNullOrEmpty(_kitId) ||
@@ -68,6 +87,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Adds a unique module category to the kit.
+    /// </summary>
     public bool AddCategory(string displayName)
     {
         if (string.IsNullOrWhiteSpace(displayName))
@@ -100,6 +122,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Removes a category and clears category references from affected modules.
+    /// </summary>
     public bool RemoveCategory(string categoryId)
     {
         CategoryDefinition category = FindCategory(categoryId);
@@ -127,6 +152,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Adds a unique compatibility group used by module replacement workflows.
+    /// </summary>
     public bool AddCompatibilityGroup(string displayName)
     {
         if (string.IsNullOrWhiteSpace(displayName))
@@ -159,6 +187,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Removes a compatibility group and clears references from affected modules.
+    /// </summary>
     public bool RemoveCompatibilityGroup(string groupId)
     {
         CompatibilityGroupDefinition group = FindCompatibilityGroup(groupId);
@@ -186,6 +217,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Adds a unique placement type used to classify placement behavior.
+    /// </summary>
     public bool AddPlacementType(string displayName)
     {
         if (string.IsNullOrWhiteSpace(displayName))
@@ -218,6 +252,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Removes a placement type and clears references from affected modules.
+    /// </summary>
     public bool RemovePlacementType(string placementTypeId)
     {
         PlacementTypeDefinition placementType = FindPlacementType(placementTypeId);
@@ -245,6 +282,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Adds a prefab to the kit as a new module and prevents duplicate prefab entries.
+    /// </summary>
     public bool AddModule(GameObject prefab, string categoryId)
     {
         if (prefab == null)
@@ -281,11 +321,17 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Adds a prefab as an unassigned module.
+    /// </summary>
     public bool AddModule(GameObject prefab)
     {
         return AddModule(prefab, string.Empty);
     }
 
+    /// <summary>
+    /// Removes a module definition by its persistent module ID.
+    /// </summary>
     public bool RemoveModule(string moduleId)
     {
         ModuleDefinition module = FindModule(moduleId);
@@ -298,6 +344,9 @@ public class ModularKitDefinition : ScriptableObject
         return _modules.Remove(module);
     }
 
+    /// <summary>
+    /// Assigns a module to an existing category.
+    /// </summary>
     public bool AssignModuleCategory(string moduleId, string categoryId)
     {
         ModuleDefinition module = FindModule(moduleId);
@@ -324,6 +373,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Assigns a module to an existing compatibility group.
+    /// </summary>
     public bool AssignModuleCompatibilityGroup(string moduleId, string groupId)
     {
         ModuleDefinition module = FindModule(moduleId);
@@ -350,6 +402,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Assigns a module to an existing placement type.
+    /// </summary>
     public bool AssignModulePlacementType(string moduleId, string placementTypeId)
     {
         ModuleDefinition module = FindModule(moduleId);
@@ -376,6 +431,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Resolves a stored category ID to the label shown in editor UI.
+    /// </summary>
     public string GetCategoryDisplayName(string categoryId)
     {
         if (string.IsNullOrWhiteSpace(categoryId))
@@ -387,6 +445,9 @@ public class ModularKitDefinition : ScriptableObject
         return category == null ? "Missing Category" : category.DisplayName;
     }
 
+    /// <summary>
+    /// Resolves a stored compatibility group ID to its editor-facing label.
+    /// </summary>
     public string GetCompatibilityGroupDisplayName(string groupId)
     {
         if (string.IsNullOrWhiteSpace(groupId))
@@ -398,6 +459,9 @@ public class ModularKitDefinition : ScriptableObject
         return group == null ? "Missing Group" : group.DisplayName;
     }
 
+    /// <summary>
+    /// Resolves a stored placement type ID to its editor-facing label.
+    /// </summary>
     public string GetPlacementTypeDisplayName(string placementTypeId)
     {
         if (string.IsNullOrWhiteSpace(placementTypeId))
@@ -409,6 +473,9 @@ public class ModularKitDefinition : ScriptableObject
         return placementType == null ? "Missing Type" : placementType.DisplayName;
     }
 
+    /// <summary>
+    /// Updates the shared XZ grid cell size when the value is valid and changed.
+    /// </summary>
     public bool SetGridCellSize(Vector2 gridCellSize)
     {
         if (gridCellSize.x <= 0 || gridCellSize.y <= 0 ||
@@ -421,6 +488,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Updates the vertical distance between build floors.
+    /// </summary>
     public bool SetFloorHeight(float floorHeight)
     {
         if (floorHeight <= 0 || Mathf.Approximately(_floorHeight, floorHeight))
@@ -432,6 +502,9 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Updates the rotation snap step when it divides 360 into whole increments.
+    /// </summary>
     public bool SetRotationSnap(float rotationSnap)
     {
         if (!IsValidRotationSnap(rotationSnap) ||
@@ -444,6 +517,13 @@ public class ModularKitDefinition : ScriptableObject
         return true;
     }
 
+    // =========================================================
+    // VALIDATION
+    // =========================================================
+
+    /// <summary>
+    /// Runs kit-wide validation and returns human-readable errors for invalid data.
+    /// </summary>
     public List<string> GetValidationErrors()
     {
         List<string> errors = new List<string>();
@@ -481,6 +561,9 @@ public class ModularKitDefinition : ScriptableObject
         return errors;
     }
 
+    /// <summary>
+    /// Validates category IDs, names and missing entries.
+    /// </summary>
     private void ValidateCategories(List<string> errors)
     {
         if (_categories == null)
@@ -515,6 +598,9 @@ public class ModularKitDefinition : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Validates compatibility group IDs, names and missing entries.
+    /// </summary>
     private void ValidateCompatibilityGroups(List<string> errors)
     {
         if (_compatibilityGroups == null)
@@ -549,6 +635,9 @@ public class ModularKitDefinition : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Validates placement type IDs, names and missing entries.
+    /// </summary>
     private void ValidatePlacementTypes(List<string> errors)
     {
         if (_placementTypes == null)
@@ -583,6 +672,9 @@ public class ModularKitDefinition : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Validates module identity, prefab references, dimensions and linked definition IDs.
+    /// </summary>
     private void ValidateModules(List<string> errors)
     {
         if (_modules == null)
@@ -671,6 +763,9 @@ public class ModularKitDefinition : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Shared validation helper for duplicate or missing IDs and display names.
+    /// </summary>
     private static void ValidateIdAndName(
         string itemType,
         int index,
@@ -699,6 +794,13 @@ public class ModularKitDefinition : ScriptableObject
         }
     }
 
+    // =========================================================
+    // INTERNAL LOOKUPS AND HELPERS
+    // =========================================================
+
+    /// <summary>
+    /// Finds a category by persistent ID.
+    /// </summary>
     private CategoryDefinition FindCategory(string categoryId)
     {
         if (_categories == null || string.IsNullOrWhiteSpace(categoryId))
@@ -719,6 +821,9 @@ public class ModularKitDefinition : ScriptableObject
         return null;
     }
 
+    /// <summary>
+    /// Finds a compatibility group by persistent ID.
+    /// </summary>
     private CompatibilityGroupDefinition FindCompatibilityGroup(string groupId)
     {
         if (_compatibilityGroups == null || string.IsNullOrWhiteSpace(groupId))
@@ -739,6 +844,9 @@ public class ModularKitDefinition : ScriptableObject
         return null;
     }
 
+    /// <summary>
+    /// Finds a placement type by persistent ID.
+    /// </summary>
     private PlacementTypeDefinition FindPlacementType(string placementTypeId)
     {
         if (_placementTypes == null || string.IsNullOrWhiteSpace(placementTypeId))
@@ -760,6 +868,9 @@ public class ModularKitDefinition : ScriptableObject
         return null;
     }
 
+    /// <summary>
+    /// Finds a module by persistent ID.
+    /// </summary>
     private ModuleDefinition FindModule(string moduleId)
     {
         if (_modules == null || string.IsNullOrWhiteSpace(moduleId))
@@ -780,6 +891,9 @@ public class ModularKitDefinition : ScriptableObject
         return null;
     }
 
+    /// <summary>
+    /// Builds a lookup set containing all currently valid category IDs.
+    /// </summary>
     private HashSet<string> GetValidCategoryIds()
     {
         HashSet<string> ids = new HashSet<string>();
@@ -802,6 +916,9 @@ public class ModularKitDefinition : ScriptableObject
         return ids;
     }
 
+    /// <summary>
+    /// Builds a lookup set containing all currently valid compatibility group IDs.
+    /// </summary>
     private HashSet<string> GetValidCompatibilityGroupIds()
     {
         HashSet<string> ids = new HashSet<string>();
@@ -824,6 +941,9 @@ public class ModularKitDefinition : ScriptableObject
         return ids;
     }
 
+    /// <summary>
+    /// Builds a lookup set containing all currently valid placement type IDs.
+    /// </summary>
     private HashSet<string> GetValidPlacementTypeIds()
     {
         HashSet<string> ids = new HashSet<string>();
@@ -847,6 +967,9 @@ public class ModularKitDefinition : ScriptableObject
         return ids;
     }
 
+    /// <summary>
+    /// Checks whether the rotation step divides a full 360-degree turn evenly.
+    /// </summary>
     private static bool IsValidRotationSnap(float rotationSnap)
     {
         if (rotationSnap <= 0f || rotationSnap > 360f)
@@ -858,6 +981,9 @@ public class ModularKitDefinition : ScriptableObject
         return Mathf.Approximately(stepCount, Mathf.Round(stepCount));
     }
 
+    /// <summary>
+    /// Repairs null serialized collections so editor operations can safely use them.
+    /// </summary>
     private void EnsureCollectionsExist()
     {
         if (_categories == null)

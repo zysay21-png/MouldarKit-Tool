@@ -1,11 +1,19 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Custom PropertyDrawer for ModuleDefinition.
+/// Displays the serialized module fields in a compact foldout layout.
+/// </summary>
 [CustomPropertyDrawer(typeof(ModuleDefinition))]
 public class ModuleDefinitionDrawer : PropertyDrawer
 {
+    // Number of serialized fields drawn when the foldout is expanded.
     private const int VisibleFieldCount = 5;
 
+    /// <summary>
+    /// Draws the foldout header and serialized ModuleDefinition fields.
+    /// </summary>
     public override void OnGUI(
         Rect position,
         SerializedProperty property,
@@ -13,6 +21,7 @@ public class ModuleDefinitionDrawer : PropertyDrawer
     {
         EditorGUI.BeginProperty(position, label, property);
 
+        // Cache references to the serialized fields stored inside ModuleDefinition.
         SerializedProperty displayNameProperty =
             property.FindPropertyRelative("_displayName");
         SerializedProperty prefabProperty =
@@ -23,7 +32,6 @@ public class ModuleDefinitionDrawer : PropertyDrawer
             property.FindPropertyRelative("_floorSpan");
         SerializedProperty snapOffsetProperty =
             property.FindPropertyRelative("_snapOffset");
-            
 
         float lineHeight = EditorGUIUtility.singleLineHeight;
         float spacing = EditorGUIUtility.standardVerticalSpacing;
@@ -35,6 +43,7 @@ public class ModuleDefinitionDrawer : PropertyDrawer
             lineHeight
         );
 
+        // Use the module display name as the foldout title.
         string moduleTitle =
             string.IsNullOrWhiteSpace(displayNameProperty.stringValue)
                 ? "Unnamed Module"
@@ -57,12 +66,10 @@ public class ModuleDefinitionDrawer : PropertyDrawer
             DrawNextProperty(ref lineRect, floorSpanProperty, lineHeight, spacing);
             DrawNextProperty(ref lineRect, snapOffsetProperty, lineHeight, spacing);
 
-                        Debug.Log(snapOffsetProperty == null
-    ? "Snap Offset property NOT FOUND"
-    : "Snap Offset property FOUND");
-
-            
-            
+            // Temporary diagnostic kept exactly as in the current V1 source.
+            Debug.Log(snapOffsetProperty == null
+                ? "Snap Offset property NOT FOUND"
+                : "Snap Offset property FOUND");
 
             EditorGUI.indentLevel--;
         }
@@ -70,6 +77,9 @@ public class ModuleDefinitionDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 
+    /// <summary>
+    /// Reserves enough inspector height for the foldout and visible fields.
+    /// </summary>
     public override float GetPropertyHeight(
         SerializedProperty property,
         GUIContent label)
@@ -82,6 +92,9 @@ public class ModuleDefinitionDrawer : PropertyDrawer
             + (lineCount - 1) * EditorGUIUtility.standardVerticalSpacing;
     }
 
+    /// <summary>
+    /// Moves the drawing rectangle to the next row and draws a property field.
+    /// </summary>
     private static void DrawNextProperty(
         ref Rect lineRect,
         SerializedProperty property,
