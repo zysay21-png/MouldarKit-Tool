@@ -4,7 +4,7 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(ModuleDefinition))]
 public class ModuleDefinitionDrawer : PropertyDrawer
 {
-    private const int VisibleFieldCount = 4;
+    private const int VisibleFieldCount = 5;
 
     public override void OnGUI(
         Rect position,
@@ -21,6 +21,9 @@ public class ModuleDefinitionDrawer : PropertyDrawer
             property.FindPropertyRelative("_moduleSizeInGridCells");
         SerializedProperty floorSpanProperty =
             property.FindPropertyRelative("_floorSpan");
+        SerializedProperty snapOffsetProperty =
+            property.FindPropertyRelative("_snapOffset");
+            
 
         float lineHeight = EditorGUIUtility.singleLineHeight;
         float spacing = EditorGUIUtility.standardVerticalSpacing;
@@ -52,6 +55,14 @@ public class ModuleDefinitionDrawer : PropertyDrawer
             DrawNextProperty(ref lineRect, prefabProperty, lineHeight, spacing);
             DrawNextProperty(ref lineRect, moduleSizeProperty, lineHeight, spacing);
             DrawNextProperty(ref lineRect, floorSpanProperty, lineHeight, spacing);
+            DrawNextProperty(ref lineRect, snapOffsetProperty, lineHeight, spacing);
+
+                        Debug.Log(snapOffsetProperty == null
+    ? "Snap Offset property NOT FOUND"
+    : "Snap Offset property FOUND");
+
+            
+            
 
             EditorGUI.indentLevel--;
         }

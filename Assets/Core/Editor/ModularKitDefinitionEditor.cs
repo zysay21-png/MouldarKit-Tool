@@ -34,6 +34,7 @@ public class ModularKitDefinitionEditor : Editor
         DrawModuleSetup(kit);
         DrawModules(kit);
         DrawValidation(kit);
+
     }
 
     private void DrawCategories(ModularKitDefinition kit)
@@ -500,6 +501,21 @@ public class ModularKitDefinitionEditor : Editor
             "Grid Size",
             module.Footprint
         );
+
+
+        Vector2 newSnapOffset = EditorGUILayout.Vector2Field(
+    "Snap Offset",
+    module.SnapOffset
+);
+
+        if (newSnapOffset != module.SnapOffset)
+        {
+            Undo.RecordObject(kit, "Change Module Snap Offset");
+
+            module.SetSnapOffset(newSnapOffset);
+
+            SaveKit(kit);
+        }
 
         if (newFootprint != module.Footprint)
         {

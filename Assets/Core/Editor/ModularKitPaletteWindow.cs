@@ -739,19 +739,20 @@ public class ModularKitPaletteWindow : EditorWindow
 
 
         float snappedX =
-            _selectedKit.GridCellSize.x *
-            Mathf.Round(
-                worldPosition.x /
-                _selectedKit.GridCellSize.x
-            );
-
+           _selectedKit.GridCellSize.x *
+           Mathf.Round(
+               worldPosition.x /
+               _selectedKit.GridCellSize.x
+           )
+           + selectedModule.SnapOffset.x;
 
         float snappedZ =
             _selectedKit.GridCellSize.y *
             Mathf.Round(
                 worldPosition.z /
                 _selectedKit.GridCellSize.y
-            );
+            )
+            + selectedModule.SnapOffset.y;
 
 
         Vector3 snappedPosition =

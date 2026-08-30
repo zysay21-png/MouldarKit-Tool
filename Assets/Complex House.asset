@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b9189f9cf057a5b938898964d63382, type: 3}
+  m_Name: Complex House
+  m_EditorClassIdentifier: Assembly-CSharp::ModularKitDefinition
+  _kitId: 054e8095aac7424d8ededca77873c93a
+  _displayName: Complex House
+  _gridCellSize: {x: 1, y: 1}
+  _floorHeight: 3
+  _rotationSnap: 90
+  _categories:
+  - _categoryId: e6d85330fd1e44e1b490e2fcc196a03e
+    _displayName: Wall
+  - _categoryId: 2f19040bd5f5484f8760063c1ebf8805
+    _displayName: Roof
+  - _categoryId: c808af93a11448f39291d33d28edac32
+    _displayName: Balcony
+  - _categoryId: a205218b40ec47389df0473907905a4c
+    _displayName: Entrace
+  - _categoryId: 62a8b91d314a4fd189c5a3d62caa5c00
+    _displayName: RoofTrim
+  _compatibilityGroups: []
+  _placementTypes:
+  - _placementTypeId: 099a49e2bbe84b7581f0daa5a22edf7a
+    _displayName: Roof
+  - _placementTypeId: 7c86827e89fe48d8ae00ab77b8d64a6a
+    _displayName: Wall
+  - _placementTypeId: 9ca76d9f30954f34b4213abbd744560a
+    _displayName: Balcony
+  - _placementTypeId: 69c44535275747a683f463fee227904a
+    _displayName: Entrance
+  - _placementTypeId: c5f061d88ff04dd5a84ac65780d862b8
+    _displayName: RoofTrim
+  _modules:
+  - _moduleId: 34eb0c660f7941309d05de504a6dafcb
+    _displayName: SM_Wallwindow
+    _prefab: {fileID: 6842143962073877565, guid: 540f2767965500e96904a3147764f96d, type: 3}
+    _categoryId: e6d85330fd1e44e1b490e2fcc196a03e
+    _compatibilityGroupId: 
+    _placementTypeId: 7c86827e89fe48d8ae00ab77b8d64a6a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: b216e12ef9ff4bbbbf4fdb0ff23d7cc8
+    _displayName: SM_Conner2Window
+    _prefab: {fileID: 365351669101408909, guid: eebe92ae85a443e87a98d4f9209f130f, type: 3}
+    _categoryId: e6d85330fd1e44e1b490e2fcc196a03e
+    _compatibilityGroupId: 
+    _placementTypeId: 7c86827e89fe48d8ae00ab77b8d64a6a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 7a16e8c0a4b1439aaa20e3c7f84e2570
+    _displayName: SM_Conner_Left.001
+    _prefab: {fileID: 7851530240082487646, guid: ac0698c54fe22505cbce4985e898fe3b, type: 3}
+    _categoryId: e6d85330fd1e44e1b490e2fcc196a03e
+    _compatibilityGroupId: 
+    _placementTypeId: 7c86827e89fe48d8ae00ab77b8d64a6a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 7d8e2f1e907049eb901689c888b8f575
+    _displayName: SM_Entrance
+    _prefab: {fileID: 8952851663735327920, guid: 44039984dd22c01b79a5790d3a2648c1, type: 3}
+    _categoryId: a205218b40ec47389df0473907905a4c
+    _compatibilityGroupId: 
+    _placementTypeId: 69c44535275747a683f463fee227904a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 7e4b927e61b14725bd2e00c128810479
+    _displayName: SM_BalconyEntrance
+    _prefab: {fileID: 6092142062167999314, guid: 8bd9768b836336536838bde7e498da61, type: 3}
+    _categoryId: a205218b40ec47389df0473907905a4c
+    _compatibilityGroupId: 
+    _placementTypeId: 69c44535275747a683f463fee227904a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 8b5587458f964b05acccd8ef16fa5a88
+    _displayName: SM_Balcony
+    _prefab: {fileID: 6806821009442567328, guid: 4fb9e06229d697bb39cec283945f2888, type: 3}
+    _categoryId: c808af93a11448f39291d33d28edac32
+    _compatibilityGroupId: 
+    _placementTypeId: 9ca76d9f30954f34b4213abbd744560a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0.5, y: 0.5}
+    _floorSpan: 1
+  - _moduleId: 7a62998c0c6c4e5b9c367df199a948c0
+    _displayName: SM_RoofTile
+    _prefab: {fileID: 3716944975084337065, guid: 1bfdbf0563d62053881d37d8ebb500b1, type: 3}
+    _categoryId: 2f19040bd5f5484f8760063c1ebf8805
+    _compatibilityGroupId: 
+    _placementTypeId: 099a49e2bbe84b7581f0daa5a22edf7a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 9a3f04b40ffe4362aba8f5a054818fb9
+    _displayName: SM_RoomTrim
+    _prefab: {fileID: 126680466801197617, guid: ce2fb6eef8fa43bbca7289757bb52d92, type: 3}
+    _categoryId: 62a8b91d314a4fd189c5a3d62caa5c00
+    _compatibilityGroupId: 
+    _placementTypeId: c5f061d88ff04dd5a84ac65780d862b8
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: aaa29476fb0c4b949d0a065db085eb4f
+    _displayName: SM_RoofConner
+    _prefab: {fileID: 2594219596813815298, guid: 8dd8a526cdef2328cb5831a5abfc55c9, type: 3}
+    _categoryId: 2f19040bd5f5484f8760063c1ebf8805
+    _compatibilityGroupId: 
+    _placementTypeId: 099a49e2bbe84b7581f0daa5a22edf7a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 327cf1273b784756ad2180c97f2c421b
+    _displayName: SM_RoofConnerOppsitee side
+    _prefab: {fileID: 6406091095989988390, guid: c0568abbb5881f7a488a20de2b99f013, type: 3}
+    _categoryId: 2f19040bd5f5484f8760063c1ebf8805
+    _compatibilityGroupId: 
+    _placementTypeId: 099a49e2bbe84b7581f0daa5a22edf7a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: bc5e317d329b4a76bd98f916c8f945f9
+    _displayName: SM_RoofTrim.001
+    _prefab: {fileID: 468654180423937917, guid: f9aabfc6fd4bbc2fa84f4ac00ed9528c, type: 3}
+    _categoryId: 62a8b91d314a4fd189c5a3d62caa5c00
+    _compatibilityGroupId: 
+    _placementTypeId: c5f061d88ff04dd5a84ac65780d862b8
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: f4b94f02dfbf4d5bbb7d30841423fbf0
+    _displayName: SM_CurveRoof
+    _prefab: {fileID: 5788243399725788754, guid: 3b7053ac13e42d10d9cce93d584280d1, type: 3}
+    _categoryId: 2f19040bd5f5484f8760063c1ebf8805
+    _compatibilityGroupId: 
+    _placementTypeId: 099a49e2bbe84b7581f0daa5a22edf7a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 9e23948a6c244578bad0cc427b124f66
+    _displayName: SM_Conner_Right
+    _prefab: {fileID: 2778065955535170989, guid: f5b51d84d73c21664a8bf7cef0653dcd, type: 3}
+    _categoryId: e6d85330fd1e44e1b490e2fcc196a03e
+    _compatibilityGroupId: 
+    _placementTypeId: 7c86827e89fe48d8ae00ab77b8d64a6a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0, y: 0}
+    _floorSpan: 1
+  - _moduleId: 539663c53a5a45b9b3a30a1a696a30ed
+    _displayName: SM_RoofTrim_Long
+    _prefab: {fileID: 2387417334664625409, guid: 9f6cecb948ed43289b0df23100f3f924, type: 3}
+    _categoryId: 62a8b91d314a4fd189c5a3d62caa5c00
+    _compatibilityGroupId: 
+    _placementTypeId: c5f061d88ff04dd5a84ac65780d862b8
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0.5, y: 0.5}
+    _floorSpan: 1
+  - _moduleId: 46fb72703c804efa86ee30ebb53a18fa
+    _displayName: SM_RoofTrim_Short
+    _prefab: {fileID: 1412088955957011560, guid: 3ab690cae9bdbc856bd708ce9e229610, type: 3}
+    _categoryId: 62a8b91d314a4fd189c5a3d62caa5c00
+    _compatibilityGroupId: 
+    _placementTypeId: c5f061d88ff04dd5a84ac65780d862b8
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0.5, y: 0.5}
+    _floorSpan: 1
+  - _moduleId: 712274120a7847c7ae2a37706574175f
+    _displayName: SM_RoofAttachment
+    _prefab: {fileID: 5303598835707981984, guid: a14e7934b8f6298f58c91d3f17cb5c5d, type: 3}
+    _categoryId: 2f19040bd5f5484f8760063c1ebf8805
+    _compatibilityGroupId: 
+    _placementTypeId: 099a49e2bbe84b7581f0daa5a22edf7a
+    _moduleSizeInGridCells: {x: 1, y: 1}
+    _snapOffset: {x: 0.5, y: 0.5}
+    _floorSpan: 1

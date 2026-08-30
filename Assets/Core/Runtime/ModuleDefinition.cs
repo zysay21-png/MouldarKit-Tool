@@ -25,6 +25,12 @@ public class ModuleDefinition
     private Vector2Int _moduleSizeInGridCells = new Vector2Int(1, 1);
 
     [SerializeField]
+    private Vector2 _snapOffset;
+
+    public Vector2 SnapOffset => _snapOffset;
+
+
+    [SerializeField]
     private int _floorSpan = 1;
 
     public string ModuleId => _moduleId;
@@ -89,4 +95,9 @@ public class ModuleDefinition
         _floorSpan = floorSpan;
         return true;
     }
+
+    public void SetSnapOffset(Vector2 snapOffset)
+{
+    _snapOffset = snapOffset;
+}
 }
