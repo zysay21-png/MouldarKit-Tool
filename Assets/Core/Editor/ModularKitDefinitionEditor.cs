@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Custom inspector for ModularKitDefinition.
+/// Provides the artist-facing authoring workflow for categories,
+/// compatibility groups, placement types, module setup and validation.
+/// </summary>
 [CustomEditor(typeof(ModularKitDefinition))]
 public class ModularKitDefinitionEditor : Editor
 {
@@ -15,6 +20,9 @@ public class ModularKitDefinitionEditor : Editor
     private string _feedbackMessage;
     private MessageType _feedbackType = MessageType.Info;
 
+    /// <summary>
+    /// Draws the complete modular kit authoring interface.
+    /// </summary>
     public override void OnInspectorGUI()
     {
         ModularKitDefinition kit = (ModularKitDefinition)target;
@@ -34,8 +42,16 @@ public class ModularKitDefinitionEditor : Editor
         DrawModuleSetup(kit);
         DrawModules(kit);
         DrawValidation(kit);
+
     }
 
+    // =========================================================
+    // CATEGORY AUTHORING
+    // =========================================================
+
+    /// <summary>
+    /// Draws existing categories and controls for adding or removing them.
+    /// </summary>
     private void DrawCategories(ModularKitDefinition kit)
     {
         EditorGUILayout.Space();
@@ -128,6 +144,13 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    // =========================================================
+    // COMPATIBILITY GROUP AUTHORING
+    // =========================================================
+
+    /// <summary>
+    /// Draws compatibility groups used by module replacement workflows.
+    /// </summary>
     private void DrawCompatibilityGroups(ModularKitDefinition kit)
     {
         EditorGUILayout.Space();
@@ -206,6 +229,13 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    // =========================================================
+    // PLACEMENT TYPE AUTHORING
+    // =========================================================
+
+    /// <summary>
+    /// Draws placement type definitions used by placement logic.
+    /// </summary>
     private void DrawPlacementTypes(ModularKitDefinition kit)
     {
         EditorGUILayout.Space();
@@ -284,6 +314,13 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    // =========================================================
+    // MODULE CREATION
+    // =========================================================
+
+    /// <summary>
+    /// Provides the workflow for adding a prefab to the selected kit.
+    /// </summary>
     private void DrawModuleSetup(ModularKitDefinition kit)
     {
         EditorGUILayout.Space();
@@ -343,6 +380,13 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    // =========================================================
+    // MODULE EDITING
+    // =========================================================
+
+    /// <summary>
+    /// Draws all module definitions and their editable metadata.
+    /// </summary>
     private void DrawModules(ModularKitDefinition kit)
     {
         EditorGUILayout.Space();
@@ -408,6 +452,9 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    /// <summary>
+    /// Draws and applies the category assignment for a module.
+    /// </summary>
     private void DrawModuleCategory(
         ModularKitDefinition kit,
         ModuleDefinition module)
@@ -435,6 +482,9 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    /// <summary>
+    /// Draws and applies the compatibility group assignment for a module.
+    /// </summary>
     private void DrawModuleCompatibilityGroup(
         ModularKitDefinition kit,
         ModuleDefinition module)
@@ -465,6 +515,9 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    /// <summary>
+    /// Draws and applies the placement type assignment for a module.
+    /// </summary>
     private void DrawModulePlacementType(
         ModularKitDefinition kit,
         ModuleDefinition module)
@@ -492,6 +545,10 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    /// <summary>
+    /// Draws module-specific placement data such as grid footprint,
+    /// snap offset and floor span.
+    /// </summary>
     private void DrawModuleDimensions(
         ModularKitDefinition kit,
         ModuleDefinition module)
@@ -500,6 +557,21 @@ public class ModularKitDefinitionEditor : Editor
             "Grid Size",
             module.Footprint
         );
+
+
+        Vector2 newSnapOffset = EditorGUILayout.Vector2Field(
+    "Snap Offset",
+    module.SnapOffset
+);
+
+        if (newSnapOffset != module.SnapOffset)
+        {
+            Undo.RecordObject(kit, "Change Module Snap Offset");
+
+            module.SetSnapOffset(newSnapOffset);
+
+            SaveKit(kit);
+        }
 
         if (newFootprint != module.Footprint)
         {
@@ -541,6 +613,13 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    // =========================================================
+    // VALIDATION AND FEEDBACK
+    // =========================================================
+
+    /// <summary>
+    /// Runs kit validation and displays any discovered errors.
+    /// </summary>
     private void DrawValidation(ModularKitDefinition kit)
     {
         EditorGUILayout.Space();
@@ -571,6 +650,9 @@ public class ModularKitDefinitionEditor : Editor
         }
     }
 
+    /// <summary>
+    /// Displays the latest editor feedback message, when available.
+    /// </summary>
     private void DrawFeedback()
     {
         if (string.IsNullOrWhiteSpace(_feedbackMessage))
@@ -581,12 +663,18 @@ public class ModularKitDefinitionEditor : Editor
         EditorGUILayout.HelpBox(_feedbackMessage, _feedbackType);
     }
 
+    /// <summary>
+    /// Stores a feedback message for display in the inspector.
+    /// </summary>
     private void SetFeedback(string message, MessageType messageType)
     {
         _feedbackMessage = message;
         _feedbackType = messageType;
     }
 
+    /// <summary>
+    /// Marks the kit dirty, saves asset changes and clears cached validation.
+    /// </summary>
     private void SaveKit(ModularKitDefinition kit)
     {
         EditorUtility.SetDirty(kit);
@@ -594,6 +682,13 @@ public class ModularKitDefinitionEditor : Editor
         _validationErrors = null;
     }
 
+    // =========================================================
+    // POPUP OPTION BUILDERS
+    // =========================================================
+
+    /// <summary>
+    /// Builds the category labels used by editor popup controls.
+    /// </summary>
     private static string[] BuildCategoryOptions(ModularKitDefinition kit)
     {
         int count = kit.Categories == null ? 0 : kit.Categories.Count;
@@ -611,6 +706,9 @@ public class ModularKitDefinitionEditor : Editor
         return options;
     }
 
+    /// <summary>
+    /// Builds compatibility group labels used by editor popup controls.
+    /// </summary>
     private static string[] BuildCompatibilityGroupOptions(
         ModularKitDefinition kit)
     {
@@ -629,6 +727,9 @@ public class ModularKitDefinitionEditor : Editor
         return options;
     }
 
+    /// <summary>
+    /// Builds placement type labels used by editor popup controls.
+    /// </summary>
     private static string[] BuildPlacementTypeOptions(ModularKitDefinition kit)
     {
         int count = kit.PlacementTypes == null ? 0 : kit.PlacementTypes.Count;
@@ -646,6 +747,13 @@ public class ModularKitDefinitionEditor : Editor
         return options;
     }
 
+    // =========================================================
+    // POPUP INDEX HELPERS
+    // =========================================================
+
+    /// <summary>
+    /// Finds the popup index that corresponds to a stored category ID.
+    /// </summary>
     private static int FindCategoryIndex(
         ModularKitDefinition kit,
         string categoryId)
@@ -668,6 +776,9 @@ public class ModularKitDefinitionEditor : Editor
         return 0;
     }
 
+    /// <summary>
+    /// Finds the popup index that corresponds to a stored compatibility group ID.
+    /// </summary>
     private static int FindCompatibilityGroupIndex(
         ModularKitDefinition kit,
         string groupId)
@@ -691,6 +802,9 @@ public class ModularKitDefinitionEditor : Editor
         return 0;
     }
 
+    /// <summary>
+    /// Finds the popup index that corresponds to a stored placement type ID.
+    /// </summary>
     private static int FindPlacementTypeIndex(
         ModularKitDefinition kit,
         string placementTypeId)
@@ -715,6 +829,13 @@ public class ModularKitDefinitionEditor : Editor
         return 0;
     }
 
+    // =========================================================
+    // POPUP ID RESOLUTION
+    // =========================================================
+
+    /// <summary>
+    /// Resolves a category popup index back to its persistent ID.
+    /// </summary>
     private static string GetCategoryId(ModularKitDefinition kit, int index)
     {
         if (index <= 0 || kit.Categories == null ||
@@ -727,6 +848,9 @@ public class ModularKitDefinitionEditor : Editor
         return category == null ? string.Empty : category.CategoryId;
     }
 
+    /// <summary>
+    /// Resolves a compatibility group popup index back to its persistent ID.
+    /// </summary>
     private static string GetCompatibilityGroupId(
         ModularKitDefinition kit,
         int index)
@@ -742,6 +866,9 @@ public class ModularKitDefinitionEditor : Editor
         return group == null ? string.Empty : group.GroupId;
     }
 
+    /// <summary>
+    /// Resolves a placement type popup index back to its persistent ID.
+    /// </summary>
     private static string GetPlacementTypeId(
         ModularKitDefinition kit,
         int index)

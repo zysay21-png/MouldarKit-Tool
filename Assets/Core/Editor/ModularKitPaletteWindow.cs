@@ -5,15 +5,29 @@ using System.Collections.Generic;
 using UnityEditor.Callbacks;
 
 
+/// <summary>
+/// Main artist-facing editor window for building modular structures.
+/// Handles kit selection, module palette UI, floor management,
+/// scene placement, ghost previews and overlap validation.
+/// </summary>
 public class ModularKitPaletteWindow : EditorWindow
 {
+    // =========================================================
+    // ACTIVE BUILD STATE
+    // =========================================================
+
     private ModularKitDefinition _selectedKit;
     private ModularBuildInstance _activeBuild;
     private ModularBuildDefinition _selectedBuildDefinition;
     private ModularBuildLevel _activeBuildLevel;
 
+    // Current palette selection.
     private string _selectedCategoryId;
     private string _selectedModuleId;
+
+    // =========================================================
+    // PLACEMENT PREVIEW STATE
+    // =========================================================
 
     private GameObject _ghostInstance;
     private string _ghostModuleId;
@@ -22,13 +36,18 @@ public class ModularKitPaletteWindow : EditorWindow
     private bool _hasCustomPlacementHeight;
     private float _customPlacementY;
 
+    // Accumulated snapped Y-axis rotation used during placement.
     private float _currentRotationY;
 
+    // Materials used to communicate valid and blocked placement states.
     private Material _ghostPreviewMaterial;
     private Material _ghostBlockedMaterial;
 
 
 
+    /// <summary>
+    /// Opens the Modular Kit Builder editor window.
+    /// </summary>
     [MenuItem("Asset/Create/Modular Kit Builder")]
     private static void OpenWindow()
     {
@@ -42,6 +61,10 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    /// <summary>
+    /// Draws the editor window UI for build selection, floors,
+    /// categories and module palette controls.
+    /// </summary>
     private void OnGUI()
     {
         // =========================================================
@@ -528,6 +551,14 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    // =========================================================
+    // SCENE PLACEMENT
+    // =========================================================
+
+    /// <summary>
+    /// Handles interactive scene placement, grid snapping, height picking,
+    /// ghost updates, rotation, overlap validation and final placement.
+    /// </summary>
     private void OnSceneGUI(SceneView sceneView)
     {
 
@@ -630,6 +661,8 @@ public class ModularKitPaletteWindow : EditorWindow
         }
 
 
+        // Placement height defaults to the active floor unless the artist
+        // has explicitly picked a custom height from scene geometry.
         float placementY =
             _hasCustomPlacementHeight
                 ? _customPlacementY
@@ -738,20 +771,23 @@ public class ModularKitPaletteWindow : EditorWindow
             mouseRay.GetPoint(distance);
 
 
+        // Snap XZ independently to the kit grid, then apply the
+        // per-module phase offset for half-grid or attachment-style modules.
         float snappedX =
-            _selectedKit.GridCellSize.x *
-            Mathf.Round(
-                worldPosition.x /
-                _selectedKit.GridCellSize.x
-            );
-
+           _selectedKit.GridCellSize.x *
+           Mathf.Round(
+               worldPosition.x /
+               _selectedKit.GridCellSize.x
+           )
+           + selectedModule.SnapOffset.x;
 
         float snappedZ =
             _selectedKit.GridCellSize.y *
             Mathf.Round(
                 worldPosition.z /
                 _selectedKit.GridCellSize.y
-            );
+            )
+            + selectedModule.SnapOffset.y;
 
 
         Vector3 snappedPosition =
@@ -796,6 +832,8 @@ public class ModularKitPaletteWindow : EditorWindow
         }
 
 
+        // The ghost always reflects the exact pose that will be used
+        // for final placement if the current candidate is valid.
         _ghostInstance.transform.position = snappedPosition;
 
         Quaternion snappedRotation = Quaternion.Euler(0f, _currentRotationY, 0f);
@@ -814,6 +852,8 @@ public class ModularKitPaletteWindow : EditorWindow
             );
 
 
+        // Placement is blocked when another module of the same placement
+        // type already occupies one of the candidate grid cells.
         bool isBlocked = overlappingModule != null;
 
 
@@ -879,6 +919,13 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    // =========================================================
+    // WINDOW LIFECYCLE
+    // =========================================================
+
+    /// <summary>
+    /// Registers scene callbacks and loads the ghost preview materials.
+    /// </summary>
     private void OnEnable()
     {
 
@@ -895,6 +942,9 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    /// <summary>
+    /// Unregisters scene callbacks and removes the active ghost.
+    /// </summary>
     private void OnDisable()
     {
 
@@ -905,6 +955,13 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    // =========================================================
+    // GHOST PREVIEW HELPERS
+    // =========================================================
+
+    /// <summary>
+    /// Safely destroys the current placement ghost and clears its cached state.
+    /// </summary>
     private void ClearGhost()
     {
         if (_ghostInstance != null)
@@ -932,6 +989,13 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    // =========================================================
+    // MODULE AND MATERIAL LOOKUPS
+    // =========================================================
+
+    /// <summary>
+    /// Finds a module definition in the selected kit by its persistent ID.
+    /// </summary>
     private ModuleDefinition FindModuleById(string moduleId)
     {
 
@@ -961,6 +1025,9 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    /// <summary>
+    /// Replaces all ghost renderer materials with the selected preview material.
+    /// </summary>
     private void ApplyGhostAppearance(
         GameObject ghost,
         Material ghostMaterial)
@@ -1008,6 +1075,9 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    /// <summary>
+    /// Finds and loads a material asset by name through the AssetDatabase.
+    /// </summary>
     private Material FindMaterialByName(string materialName)
     {
 
@@ -1040,6 +1110,14 @@ public class ModularKitPaletteWindow : EditorWindow
 
 
 
+    // =========================================================
+    // GRID OCCUPANCY AND OVERLAP
+    // =========================================================
+
+    /// <summary>
+    /// Converts a module footprint, position and snapped rotation into
+    /// the set of logical grid cells occupied by that module.
+    /// </summary>
     private HashSet<Vector2Int> GetOccupiedCells(Vector3 position, Vector2Int footprint, float rotationY)
     {
 
@@ -1123,6 +1201,10 @@ public class ModularKitPaletteWindow : EditorWindow
         return occupiedCells;
 
     }
+    /// <summary>
+    /// Finds an already placed module of the same placement type that
+    /// occupies at least one of the candidate module's grid cells.
+    /// </summary>
     private PlacedModuleInstance FindOverlappingModule(Vector3 position, Vector2Int footprint, float rotationY, Transform activeLevel, string placementTypeId)
     {
 
@@ -1181,6 +1263,14 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    // =========================================================
+    // BUILD CREATION AND RESTORATION
+    // =========================================================
+
+    /// <summary>
+    /// Creates a persistent build definition asset together with its
+    /// scene-side build root and initial floor hierarchy.
+    /// </summary>
     private void CreateBuild()
     {
 
@@ -1275,6 +1365,9 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    /// <summary>
+    /// Finds the scene-side build instance associated with a build definition.
+    /// </summary>
     private ModularBuildInstance FindBuildInstance(
         ModularBuildDefinition definition)
     {
@@ -1311,6 +1404,10 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    /// <summary>
+    /// Restores an existing scene build into the editor window and resets
+    /// temporary placement state.
+    /// </summary>
     private void ContinueBuild(
         ModularBuildDefinition definition)
     {
@@ -1363,6 +1460,9 @@ public class ModularKitPaletteWindow : EditorWindow
 
     }
 
+    /// <summary>
+    /// Opens the builder window directly for an existing build definition.
+    /// </summary>
     public static void OpenBuild(ModularBuildDefinition buildDefinition)
     {
 
@@ -1379,6 +1479,10 @@ public class ModularKitPaletteWindow : EditorWindow
     }
 
 
+    /// <summary>
+    /// Intercepts opening a ModularBuildDefinition asset and redirects it
+    /// into the Modular Kit Builder window.
+    /// </summary>
     [OnOpenAsset]
     private static bool OnOpenAsset(EntityId entityId, int line)
     {
@@ -1408,6 +1512,9 @@ public class ModularKitPaletteWindow : EditorWindow
 
     }
 
+    /// <summary>
+    /// Cancels the current placement operation and resets transient input state.
+    /// </summary>
     private void CancelPlacement()
     {
         _selectedModuleId = null;
